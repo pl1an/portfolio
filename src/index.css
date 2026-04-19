@@ -2,15 +2,15 @@
 @import 'tailwindcss';
 
 :root {
-  --bg: #03070c;
-  --bg-soft: #071019;
-  --surface: rgba(8, 16, 26, 0.7);
-  --surface-strong: rgba(6, 12, 20, 0.86);
-  --surface-border: rgba(142, 166, 183, 0.28);
-  --text: #e8eef5;
-  --muted: #95a6b8;
-  --accent: #5eead4;
-  --accent-soft: rgba(94, 234, 212, 0.2);
+  --bg: #0b0d10;
+  --bg-soft: #13171b;
+  --surface: rgba(18, 22, 27, 0.74);
+  --surface-strong: rgba(13, 17, 21, 0.88);
+  --surface-border: rgba(126, 148, 138, 0.3);
+  --text: #e7edf2;
+  --muted: #98a3ad;
+  --accent: #34d399;
+  --accent-soft: rgba(52, 211, 153, 0.22);
 }
 
 * {
@@ -33,9 +33,9 @@ body {
   font-family: 'Geist', 'Segoe UI', sans-serif;
   text-rendering: optimizeLegibility;
   background:
-    radial-gradient(circle at 15% 10%, rgba(77, 134, 170, 0.18), transparent 45%),
-    radial-gradient(circle at 85% 78%, rgba(70, 145, 129, 0.16), transparent 44%),
-    linear-gradient(140deg, var(--bg) 0%, var(--bg-soft) 50%, #050c12 100%);
+    radial-gradient(circle at 15% 10%, rgba(55, 186, 138, 0.16), transparent 45%),
+    radial-gradient(circle at 85% 78%, rgba(38, 166, 123, 0.14), transparent 44%),
+    linear-gradient(140deg, var(--bg) 0%, var(--bg-soft) 52%, #0a0d10 100%);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

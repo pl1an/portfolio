@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Link2, Rocket } from 'lucide-react'
+import { Link2 } from 'lucide-react'
 import type { ProjectItem } from '../data/portfolioData'
 
 type ProjectsSectionProps = {
@@ -74,11 +74,11 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
       className="pt-14"
     >
       <div className="glass-card px-6 py-8 sm:px-10">
-        <div className="flex items-center gap-2 text-teal-100">
-          <p className="mono-label text-xs uppercase tracking-[0.22em] text-teal-100/85">Featured projects</p>
+        <div className="flex items-center gap-2 text-emerald-100">
+          <p className="mono-label text-xs uppercase tracking-[0.22em] text-emerald-300/85">Featured projects</p>
         </div>
 
-        <h2 className="mt-3 text-2xl font-bold text-slate-100 sm:text-3xl">Products and applied research</h2>
+        <h2 className="mt-3 text-2xl font-bold text-zinc-100 sm:text-3xl">Products and applied research</h2>
 
         <div
           ref={scrollContainerRef}
@@ -100,26 +100,26 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                   whileHover={{ y: -6, scale: 1.01 }}
                   onPointerEnter={pauseAutoScroll}
                   onPointerLeave={resumeAutoScroll}
-                  className="group relative overflow-hidden rounded-2xl border border-slate-200/20 bg-slate-900/58 p-5 pb-14 backdrop-blur-md"
+                  className="group relative overflow-hidden rounded-2xl border border-zinc-200/20 bg-zinc-900/58 p-5 pb-14 backdrop-blur-md"
                 >
-                  <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-teal-300/12 blur-2xl transition group-hover:bg-teal-200/20" />
+                  <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-emerald-400/12 blur-2xl transition group-hover:bg-emerald-300/20" />
 
-                  <h3 className="text-xl font-semibold text-slate-100">{project.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-300">{project.description}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-300/95">{project.outcome}</p>
+                  <h3 className="text-xl font-semibold text-zinc-100">{project.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-300">{project.description}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-300/95">{project.outcome}</p>
 
                   <div className="mt-4 flex flex-wrap gap-2">
                     {project.stack.map((stackItem) => (
                       <span
                         key={stackItem}
-                        className="mono-label rounded-full border border-teal-200/25 bg-teal-100/8 px-2.5 py-1 text-[0.64rem] uppercase tracking-[0.08em] text-teal-100"
+                        className="mono-label rounded-full border border-emerald-300/25 bg-emerald-100/8 px-2.5 py-1 text-[0.64rem] uppercase tracking-[0.08em] text-emerald-100"
                       >
                         {stackItem}
                       </span>
                     ))}
                   </div>
 
-                  <span className="pointer-events-none absolute bottom-4 right-4 inline-flex items-center justify-center rounded-full border border-teal-200/30 bg-teal-200/10 p-2 text-teal-100/90">
+                  <span className="pointer-events-none absolute bottom-4 right-4 inline-flex items-center justify-center rounded-full border border-emerald-300/30 bg-emerald-300/10 p-2 text-emerald-100/90">
                     <Link2 size={14} />
                   </span>
                 </motion.a>
@@ -133,26 +133,26 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                   whileHover={{ y: -6, scale: 1.01 }}
                   onPointerEnter={pauseAutoScroll}
                   onPointerLeave={resumeAutoScroll}
-                  className="group relative overflow-hidden rounded-2xl border border-slate-200/20 bg-slate-900/58 p-5 pb-14 backdrop-blur-md"
+                  className="group relative overflow-hidden rounded-2xl border border-zinc-200/20 bg-zinc-900/58 p-5 pb-14 backdrop-blur-md"
                 >
-                  <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-teal-300/12 blur-2xl transition group-hover:bg-teal-200/20" />
+                  <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-emerald-400/12 blur-2xl transition group-hover:bg-emerald-300/20" />
 
-                  <h3 className="text-xl font-semibold text-slate-100">{project.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-300">{project.description}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-300/95">{project.outcome}</p>
+                  <h3 className="text-xl font-semibold text-zinc-100">{project.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-300">{project.description}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-300/95">{project.outcome}</p>
 
                   <div className="mt-4 flex flex-wrap gap-2">
                     {project.stack.map((stackItem) => (
                       <span
                         key={stackItem}
-                        className="mono-label rounded-full border border-teal-200/25 bg-teal-100/8 px-2.5 py-1 text-[0.64rem] uppercase tracking-[0.08em] text-teal-100"
+                        className="mono-label rounded-full border border-emerald-300/25 bg-emerald-100/8 px-2.5 py-1 text-[0.64rem] uppercase tracking-[0.08em] text-emerald-100"
                       >
                         {stackItem}
                       </span>
                     ))}
                   </div>
 
-                  <span className="mono-label absolute bottom-4 right-4 text-[0.62rem] uppercase tracking-[0.16em] text-slate-300/70">
+                  <span className="mono-label absolute bottom-4 right-4 text-[0.62rem] uppercase tracking-[0.16em] text-zinc-400/70">
                     private
                   </span>
                 </motion.article>
