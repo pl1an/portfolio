@@ -10,12 +10,24 @@ export type ExperienceItem = {
   highlights: string[]
 }
 
-export type ProjectItem = {
+type BaseProjectItem = {
   title: string
   description: string
   outcome: string
   stack: string[]
 }
+
+type PublicProjectItem = BaseProjectItem & {
+  visibility: 'public'
+  repositoryUrl: string
+}
+
+type PrivateProjectItem = BaseProjectItem & {
+  visibility: 'private'
+  repositoryUrl?: undefined
+}
+
+export type ProjectItem = PublicProjectItem | PrivateProjectItem
 
 export type SkillItem = {
   key:
@@ -83,6 +95,7 @@ export const projects: ProjectItem[] = [
     outcome:
       'Reinforcement Learning experiments to evaluate decision dynamics in complex systems.',
     stack: ['Godot', 'RL', '2D Simulation'],
+    visibility: 'private',
   },
   {
     title: 'PCremote',
@@ -91,6 +104,8 @@ export const projects: ProjectItem[] = [
     outcome:
       'Encrypted socket communication for secure operations between devices.',
     stack: ['React Native', 'Python', 'Sockets'],
+    visibility: 'public',
+    repositoryUrl: 'https://github.com/pl1an/PCremote',
   },
   {
     title: 'Remunera',
@@ -99,6 +114,7 @@ export const projects: ProjectItem[] = [
     outcome:
       'Automated forecasting using AI models for revenue and cost scenarios.',
     stack: ['React', 'Node.js', 'AI Models'],
+    visibility: 'private',
   },
   {
     title: 'eventOS',
@@ -107,6 +123,28 @@ export const projects: ProjectItem[] = [
     outcome:
       'Gesture-driven interactions and a smooth navigation flow for high-quality mobile experiences.',
     stack: ['React Native', 'Advanced UX', 'Gestures'],
+    visibility: 'public',
+    repositoryUrl: 'https://github.com/pl1an/eventOS-revamped',
+  },
+  {
+    title: 'Hemlock Nox',
+    description:
+      'Action roguelike game built during Coco Code Game Jam #1.',
+    outcome:
+      'Designed combat loops and progression systems for a complete jam-ready release.',
+    stack: ['Godot', 'GDScript', 'Roguelike'],
+    visibility: 'public',
+    repositoryUrl: 'https://github.com/pl1an/hemlock_nox',
+  },
+  {
+    title: 'I Just Need to Get to Work',
+    description:
+      'Puzzle game created for Brackeys Game Jam 2025.1.',
+    outcome:
+      'Implemented level mechanics and gameplay polish for a compact puzzle experience.',
+    stack: ['Godot', 'GDScript', 'Puzzle Game'],
+    visibility: 'public',
+    repositoryUrl: 'https://github.com/pl1an/i_just_need_to_get_to_work',
   },
 ]
 
