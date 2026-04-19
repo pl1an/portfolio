@@ -1,0 +1,95 @@
+import { motion } from 'framer-motion'
+import { ArrowRight, Link2 } from 'lucide-react'
+
+type HeroSectionProps = {
+  name: string
+  bio: string
+  github: string
+  specialties: string[]
+}
+
+const easeCurve = [0.22, 1, 0.36, 1] as const
+
+export function HeroSection({ name, bio, github, specialties }: HeroSectionProps) {
+  return (
+    <motion.section
+      id="home"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.65, ease: easeCurve }}
+      className="relative flex min-h-[86svh] flex-col justify-center"
+    >
+      <div className="glass-card-strong relative overflow-hidden px-6 py-10 sm:px-10 sm:py-14">
+        <div className="pointer-events-none absolute -left-20 top-8 h-44 w-44 rounded-full bg-teal-300/16 blur-3xl" />
+        <div className="pointer-events-none absolute -right-12 bottom-0 h-40 w-40 rounded-full bg-cyan-200/12 blur-3xl" />
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.12, ease: easeCurve }}
+          className="mono-label text-xs uppercase tracking-[0.25em] text-teal-200/85"
+        >
+          ML Researcher · FullStack Engineer · Game Developer 
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.2, ease: easeCurve }}
+          className="mt-4 text-4xl font-extrabold leading-tight text-slate-100 sm:text-6xl"
+        >
+          {name}
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.28, ease: easeCurve }}
+          className="mt-6 max-w-3xl text-base text-slate-300 sm:text-lg"
+        >
+          {bio}
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.36, ease: easeCurve }}
+          className="mt-8 flex flex-wrap gap-3"
+        >
+          {specialties.map((specialty) => (
+            <span
+              key={specialty}
+              className="mono-label rounded-full border border-teal-200/30 bg-teal-200/12 px-3 py-1.5 text-xs uppercase tracking-wide text-teal-100"
+            >
+              {specialty}
+            </span>
+          ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.44, ease: easeCurve }}
+          className="mt-9 flex flex-wrap items-center gap-3"
+        >
+          <a
+            href="#projects"
+            className="inline-flex items-center gap-2 rounded-full bg-teal-300 px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-teal-200"
+          >
+            View projects
+            <ArrowRight size={16} />
+          </a>
+          <a
+            href={github}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200/30 px-5 py-2.5 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
+          >
+            GitHub
+            <Link2 size={16} />
+          </a>
+        </motion.div>
+      </div>
+    </motion.section>
+  )
+}
