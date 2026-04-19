@@ -1,73 +1,115 @@
-# React + TypeScript + Vite
+# Portfolio - Ian Paleta Starling
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio built with React + TypeScript to present experience, skills, projects, and research focus in applied AI.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Access the published version at:
 
-## React Compiler
+https://portfolio-c6t4evxid-pl1ans-projects.vercel.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Overview
 
-## Expanding the ESLint configuration
+This portfolio was built as a single-page interface with full-screen section transitions. The goal is to combine a strong visual identity with smooth navigation across desktop and mobile.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Site sections:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Home
+- About
+- Skills
+- Experience
+- Projects
+- Contact
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Section-based navigation with Framer Motion animations
+- Section transitions through scroll, keyboard, and touch gestures
+- Interactive background with a Conway's Game of Life canvas simulation
+- Project cards with emphasis on public repositories
+- Automatic horizontal project carousel (pauses on interaction)
+- Responsive layout for desktop and mobile
+
+## Stack
+
+- React 19
+- TypeScript
+- Vite 8
+- Tailwind CSS 4 (via the official Vite plugin)
+- Framer Motion
+- Lucide React
+- ESLint
+
+## Main Structure
+
+```text
+src/
+  components/
+    AboutSection.tsx
+    ExperienceSection.tsx
+    Footer.tsx
+    GameOfLifeBackground.tsx
+    Header.tsx
+    HeroSection.tsx
+    ProjectsSection.tsx
+    SkillsSection.tsx
+  data/
+    portfolioData.ts
+  App.tsx
+  index.css
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## How to Run Locally
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 1. Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 20+
+- npm
+
+### 2. Install dependencies
+
+```bash
+npm install
 ```
+
+### 3. Start development server
+
+```bash
+npm run dev
+```
+
+### 4. Build for production
+
+```bash
+npm run build
+```
+
+### 5. Preview production build locally
+
+```bash
+npm run preview
+```
+
+## Available Scripts
+
+- `npm run dev`: starts the development server
+- `npm run build`: runs type-checking and production build
+- `npm run preview`: serves a local preview of the build
+- `npm run lint`: runs project linting
+
+## How to Update Portfolio Content
+
+The main portfolio data (profile, experience, skills, and projects) is centralized in:
+
+`src/data/portfolioData.ts`
+
+If you want to change text, links, or add new projects, this is the primary file to maintain.
+
+## Contact
+
+- GitHub: https://github.com/pl1an
+- LinkedIn: https://linkedin.com/in/ian-paleta-starling-0a65b52b3
+
+---
+
+Project created for professional and technical presentation.
