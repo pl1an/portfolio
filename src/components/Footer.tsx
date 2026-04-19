@@ -4,19 +4,23 @@ import { Link2, Mail } from 'lucide-react'
 type FooterProps = {
   github: string
   email: string
+  docked?: boolean
 }
 
-export function Footer({ github, email }: FooterProps) {
+export function Footer({ github, email, docked = false }: FooterProps) {
   return (
     <motion.footer
       id="contact"
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.5 }}
+      initial={docked ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="pb-14 pt-12"
+      className={docked ? 'w-full' : 'pb-14 pt-12'}
     >
-      <div className="glass-card mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 px-6 py-6 text-slate-300 sm:flex-row sm:px-8">
+      <div
+        className={`glass-card mx-auto flex max-w-6xl flex-col items-center justify-between text-slate-300 sm:flex-row ${
+          docked ? 'gap-2 px-4 py-2.5 sm:px-6' : 'gap-5 px-6 py-6 sm:px-8'
+        }`}
+      >
         <p className="mono-label text-[0.68rem] uppercase tracking-[0.22em] text-slate-400">
           Ian Paleta Starling · {new Date().getFullYear()}
         </p>

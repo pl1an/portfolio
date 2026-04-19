@@ -36,13 +36,13 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
       const deltaSeconds = Math.min((time - previousTime) / 1000, MAX_DELTA_SECONDS)
       previousTime = time
 
-    if (document.hidden) {
+      if (document.hidden) {
         previousTime = time
         frameId = requestAnimationFrame(animate)
         return
-    }
+      }
 
-    if (!isAutoScrollPausedRef.current) {
+      if (!isAutoScrollPausedRef.current) {
         const loopWidth = container.scrollWidth / 2
 
         if (loopWidth > 0) {
@@ -67,8 +67,8 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   return (
     <motion.section
       id="projects"
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 28 }}
+      whileInView={{ y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className="pt-14"
@@ -83,9 +83,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
         <div
           ref={scrollContainerRef}
-          onPointerLeave={resumeAutoScroll}
-          onPointerEnter={pauseAutoScroll}
-          className="hide-scrollbar mt-8 overflow-x-auto pb-2 pt-3"
+          className="hide-scrollbar mt-8 w-full max-w-full overflow-x-auto pb-2 pt-3"
         >
           <div className="grid w-max min-w-full auto-cols-[minmax(280px,360px)] grid-flow-col grid-rows-2 gap-4 pr-1 overflow-visible">
             {renderedProjects.map((project, index) => (
@@ -96,12 +94,14 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={`Open ${project.title} repository`}
-                  initial={{ opacity: 0, y: 26 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ y: 26 }}
+                  whileInView={{ y: 0 }}
                   viewport={{ once: true, amount: 0.35 }}
                   transition={{ duration: 0.46, delay: index * 0.06, ease: 'easeOut' }}
                   whileHover={{ y: -6, scale: 1.01 }}
-                  className="group relative overflow-visible rounded-2xl border border-slate-200/20 bg-slate-900/58 p-5 pb-14 backdrop-blur-md"
+                  onPointerEnter={pauseAutoScroll}
+                  onPointerLeave={resumeAutoScroll}
+                  className="group relative overflow-hidden rounded-2xl border border-slate-200/20 bg-slate-900/58 p-5 pb-14 backdrop-blur-md"
                 >
                   <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-teal-300/12 blur-2xl transition group-hover:bg-teal-200/20" />
 
@@ -127,11 +127,13 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
               ) : (
                 <motion.article
                   key={`${project.title}-${index}`}
-                  initial={{ opacity: 0, y: 26 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ y: 26 }}
+                  whileInView={{ y: 0 }}
                   viewport={{ once: true, amount: 0.35 }}
                   transition={{ duration: 0.46, delay: index * 0.06, ease: 'easeOut' }}
                   whileHover={{ y: -6, scale: 1.01 }}
+                  onPointerEnter={pauseAutoScroll}
+                  onPointerLeave={resumeAutoScroll}
                   className="group relative overflow-hidden rounded-2xl border border-slate-200/20 bg-slate-900/58 p-5 pb-14 backdrop-blur-md"
                 >
                   <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-teal-300/12 blur-2xl transition group-hover:bg-teal-200/20" />

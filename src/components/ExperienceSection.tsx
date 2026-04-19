@@ -10,8 +10,8 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
   return (
     <motion.section
       id="experience"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 30 }}
+      whileInView={{ y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.55, ease: 'easeOut' }}
       className="pt-14"
@@ -28,8 +28,8 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
           {experiences.map((item, index) => (
             <motion.article
               key={`${item.organization}-${item.period}`}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ x: index % 2 === 0 ? -20 : 20 }}
+              whileInView={{ x: 0 }}
               viewport={{ once: true, amount: 0.45 }}
               transition={{ duration: 0.45, delay: index * 0.08, ease: 'easeOut' }}
               className="rounded-xl border border-slate-200/18 bg-slate-900/52 p-5"

@@ -6,16 +6,17 @@ type HeroSectionProps = {
   bio: string
   github: string
   specialties: string[]
+  onViewProjects: () => void
 }
 
 const easeCurve = [0.22, 1, 0.36, 1] as const
 
-export function HeroSection({ name, bio, github, specialties }: HeroSectionProps) {
+export function HeroSection({ name, bio, github, specialties, onViewProjects }: HeroSectionProps) {
   return (
     <motion.section
       id="home"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ y: 30 }}
+      animate={{ y: 0 }}
       transition={{ duration: 0.65, ease: easeCurve }}
       className="relative flex min-h-[86svh] flex-col justify-center"
     >
@@ -24,8 +25,8 @@ export function HeroSection({ name, bio, github, specialties }: HeroSectionProps
         <div className="pointer-events-none absolute -right-12 bottom-0 h-40 w-40 rounded-full bg-cyan-200/12 blur-3xl" />
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.45, delay: 0.12, ease: easeCurve }}
           className="mono-label text-xs uppercase tracking-[0.25em] text-teal-200/85"
         >
@@ -33,8 +34,8 @@ export function HeroSection({ name, bio, github, specialties }: HeroSectionProps
         </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.45, delay: 0.2, ease: easeCurve }}
           className="mt-4 text-4xl font-extrabold leading-tight text-slate-100 sm:text-6xl"
         >
@@ -42,8 +43,8 @@ export function HeroSection({ name, bio, github, specialties }: HeroSectionProps
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.45, delay: 0.28, ease: easeCurve }}
           className="mt-6 max-w-3xl text-base text-slate-300 sm:text-lg"
         >
@@ -51,8 +52,8 @@ export function HeroSection({ name, bio, github, specialties }: HeroSectionProps
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.45, delay: 0.36, ease: easeCurve }}
           className="mt-8 flex flex-wrap gap-3"
         >
@@ -67,18 +68,19 @@ export function HeroSection({ name, bio, github, specialties }: HeroSectionProps
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.45, delay: 0.44, ease: easeCurve }}
           className="mt-9 flex flex-wrap items-center gap-3"
         >
-          <a
-            href="#projects"
+          <button
+            type="button"
+            onClick={onViewProjects}
             className="inline-flex items-center gap-2 rounded-full bg-teal-300 px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-teal-200"
           >
             View projects
             <ArrowRight size={16} />
-          </a>
+          </button>
           <a
             href={github}
             target="_blank"

@@ -13,6 +13,7 @@ import type { SkillItem } from '../data/portfolioData'
 
 type SkillsSectionProps = {
   skills: SkillItem[]
+  sectionClassName?: string
 }
 
 const iconMap: Record<SkillItem['key'], LucideIcon> = {
@@ -25,15 +26,15 @@ const iconMap: Record<SkillItem['key'], LucideIcon> = {
   git: FolderGit2,
 }
 
-export function SkillsSection({ skills }: SkillsSectionProps) {
+export function SkillsSection({ skills, sectionClassName = 'pt-14' }: SkillsSectionProps) {
   return (
     <motion.section
       id="skills"
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 28 }}
+      whileInView={{ y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.55, ease: 'easeOut' }}
-      className="pt-14"
+      className={sectionClassName}
     >
       <div className="glass-card px-6 py-8 sm:px-10">
         <p className="mono-label text-xs uppercase tracking-[0.22em] text-teal-100/85">Skills</p>
@@ -46,8 +47,8 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
             return (
               <motion.div
                 key={skill.key}
-                initial={{ opacity: 0, scale: 0.94 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ scale: 0.94 }}
+                whileInView={{ scale: 1 }}
                 viewport={{ once: true, amount: 0.45 }}
                 transition={{ duration: 0.34, delay: index * 0.05, ease: 'easeOut' }}
                 whileHover={{ y: -4 }}

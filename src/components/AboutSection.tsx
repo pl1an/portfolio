@@ -3,17 +3,18 @@ import { BrainCircuit, GraduationCap } from 'lucide-react'
 
 type AboutSectionProps = {
   about: string
+  sectionClassName?: string
 }
 
-export function AboutSection({ about }: AboutSectionProps) {
+export function AboutSection({ about, sectionClassName = 'pt-14' }: AboutSectionProps) {
   return (
     <motion.section
       id="about"
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 32 }}
+      whileInView={{ y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.55, ease: 'easeOut' }}
-      className="pt-14"
+      className={sectionClassName}
     >
       <div className="glass-card px-6 py-8 sm:px-10">
         <p className="mono-label text-xs uppercase tracking-[0.22em] text-teal-200/85">About</p>
