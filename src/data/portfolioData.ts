@@ -47,7 +47,7 @@ export const profile = {
   about:
     'I work at the intersection of Applied AI and Theoretical Computer Science, combining research and engineering to build robust, readable, impact-driven digital products.',
   github: 'https://github.com/pl1an',
-  email: 'paletaian56@gmail.com',
+  linkedin: 'https://linkedin.com/in/ian-paleta-starling-0a65b52b3',
 }
 
 export const specialties = [
@@ -61,11 +61,19 @@ export const navItems: NavItem[] = [
   { label: 'About', href: '#about' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
 ]
 
 export const experiences: ExperienceItem[] = [
+  {
+    organization: 'Inter',
+    role: 'Machine Learning Researcher',
+    period: '02/2026 - Present',
+    highlights: [
+      'I develop applied research in financial data modeling, creating foundation models for analysis and insight generation from banking data.',
+      'I work in partnership with UFMG and Inter, exploring advanced machine learning and data science techniques to improve understanding and strategic use of large-scale data.',
+    ],
+  },
   {
     organization: 'iJunior',
     role: 'Front-End Developer',

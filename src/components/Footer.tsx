@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion'
-import { Link2, Mail } from 'lucide-react'
+import { Link2 } from 'lucide-react'
 
 type FooterProps = {
   github: string
-  email: string
+  linkedin: string
   docked?: boolean
 }
 
-export function Footer({ github, email, docked = false }: FooterProps) {
+export function Footer({ github, linkedin, docked = false }: FooterProps) {
   return (
     <motion.footer
       id="contact"
@@ -36,10 +36,12 @@ export function Footer({ github, email, docked = false }: FooterProps) {
           </a>
 
           <a
-            href={`mailto:${email}`}
+            href={linkedin}
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-slate-200/20 px-4 py-2 transition hover:bg-white/10 hover:text-white"
           >
-            <Mail size={16} /> {email}
+            <Link2 size={16} /> LinkedIn
           </a>
         </div>
       </div>

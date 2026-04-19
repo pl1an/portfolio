@@ -224,7 +224,7 @@ function App() {
         </main>
 
         <div className="fixed inset-x-0 bottom-4 z-20 px-4 sm:px-6 lg:px-8">
-          <Footer github={profile.github} email={profile.email} docked />
+          <Footer github={profile.github} linkedin={profile.linkedin} docked />
         </div>
       </div>
     </div>
