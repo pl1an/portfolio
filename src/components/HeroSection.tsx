@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, Link2 } from 'lucide-react'
+import { Link2 } from 'lucide-react'
 
 type HeroSectionProps = {
   name: string
@@ -7,22 +7,25 @@ type HeroSectionProps = {
   github: string
   specialties: string[]
   onViewProjects: () => void
+  onViewAbout: () => void
 }
 
 const easeCurve = [0.22, 1, 0.36, 1] as const
 
-export function HeroSection({ name, bio, github, specialties, onViewProjects }: HeroSectionProps) {
+export function HeroSection({ name, bio, github, specialties, onViewProjects, onViewAbout }: HeroSectionProps) {
   return (
     <motion.section
       id="home"
       initial={{ y: 30 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.65, ease: easeCurve }}
-      className="relative flex min-h-[86svh] flex-col justify-center"
+      className="relative h-full min-h-0"
     >
-      <div className="glass-card-strong relative overflow-hidden px-6 py-10 sm:px-10 sm:py-14">
+      <div data-section-scrollable="true" className="glass-card-strong hide-scrollbar relative max-h-full overflow-y-auto px-6 py-8 sm:px-10 sm:py-10">
         <div className="pointer-events-none absolute -left-20 top-8 h-44 w-44 rounded-full bg-emerald-400/16 blur-3xl" />
         <div className="pointer-events-none absolute -right-12 bottom-0 h-40 w-40 rounded-full bg-emerald-300/10 blur-3xl" />
+
+        <div className="relative z-10 pr-1">
 
         <motion.p
           initial={{ y: 20 }}
@@ -79,7 +82,13 @@ export function HeroSection({ name, bio, github, specialties, onViewProjects }: 
             className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-semibold text-zinc-900 transition hover:bg-emerald-300"
           >
             View projects
-            <ArrowRight size={16} />
+          </button>
+          <button
+            type="button"
+            onClick={onViewAbout}
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-semibold text-zinc-900 transition hover:bg-emerald-300"
+          >
+            View About 
           </button>
           <a
             href={github}
@@ -91,6 +100,7 @@ export function HeroSection({ name, bio, github, specialties, onViewProjects }: 
             <Link2 size={16} />
           </a>
         </motion.div>
+        </div>
       </div>
     </motion.section>
   )

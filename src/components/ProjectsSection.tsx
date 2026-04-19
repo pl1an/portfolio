@@ -71,9 +71,9 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
       whileInView={{ y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="pt-14"
+      className="h-full min-h-0"
     >
-      <div className="glass-card px-6 py-8 sm:px-10">
+      <div data-section-scrollable="true" className="glass-card hide-scrollbar max-h-full overflow-y-auto px-6 py-8 sm:px-10">
         <div className="flex items-center gap-2 text-emerald-100">
           <p className="mono-label text-xs uppercase tracking-[0.22em] text-emerald-300/85">Featured projects</p>
         </div>
@@ -82,7 +82,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
         <div
           ref={scrollContainerRef}
-          className="hide-scrollbar mt-8 w-full max-w-full overflow-x-auto pb-2 pt-3"
+          className="hide-scrollbar mt-8 w-full max-w-full overflow-x-auto pb-2 pt-3 pr-1"
         >
           <div className="grid w-max min-w-full auto-cols-[minmax(280px,360px)] grid-flow-col grid-rows-2 gap-4 pr-1 overflow-visible">
             {renderedProjects.map((project, index) => (

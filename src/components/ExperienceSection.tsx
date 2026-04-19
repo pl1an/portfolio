@@ -14,16 +14,16 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
       whileInView={{ y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.55, ease: 'easeOut' }}
-      className="pt-14"
+      className="h-full min-h-0"
     >
-      <div className="glass-card px-6 py-8 sm:px-10">
+      <div data-section-scrollable="true" className="glass-card hide-scrollbar max-h-full overflow-y-auto px-6 py-8 sm:px-10">
         <div className="flex items-center gap-2 text-emerald-100">
           <p className="mono-label text-xs uppercase tracking-[0.22em] text-emerald-300/85">Experience</p>
         </div>
 
         <h2 className="mt-3 text-2xl font-bold text-zinc-100 sm:text-3xl">Professional journey</h2>
 
-        <div className="mt-8 space-y-4">
+        <div className="mt-8 space-y-4 pr-1">
           {experiences.map((item, index) => (
             <motion.article
               key={`${item.organization}-${item.period}`}

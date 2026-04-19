@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AboutSection } from './components/AboutSection'
 import { ExperienceSection } from './components/ExperienceSection'
@@ -19,14 +20,45 @@ import {
 
 const SECTION_ORDER = ['#home', '#about', '#skills', '#experience', '#projects'] as const
 const TRANSITION_LOCK_MS = 200
+const MOBILE_BREAKPOINT_PX = 900
+const DESKTOP_WHEEL_THRESHOLD = 42
+const MOBILE_SWIPE_THRESHOLD = 56
+const DESKTOP_TOUCH_THRESHOLD = 45
+const OVERFLOW_EPSILON = 2
 
 function App() {
   const [activeSectionIndex, setActiveSectionIndex] = useState(0)
   const [direction, setDirection] = useState<1 | -1>(1)
+  const [isMobileLayout, setIsMobileLayout] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < MOBILE_BREAKPOINT_PX : false,
+  )
+  const [sectionHasOverflow, setSectionHasOverflow] = useState(false)
   const isTransitioningRef = useRef(false)
   const wheelAccumulatorRef = useRef(0)
-  const touchStartYRef = useRef<number | null>(null)
+  const touchStartPointRef = useRef<{ x: number; y: number } | null>(null)
+  const sectionScrollRef = useRef<HTMLDivElement | null>(null)
   const focusNavItems = navItems.filter((item) => item.href !== '#contact')
+  const activeSectionId = SECTION_ORDER[activeSectionIndex].slice(1)
+
+  const getActiveScrollableElement = useCallback(() => {
+    const container = sectionScrollRef.current
+    if (!container || container.dataset.sectionId !== activeSectionId) {
+      return null
+    }
+
+    const sectionScrollable = container.querySelector<HTMLElement>('[data-section-scrollable="true"]')
+    return sectionScrollable ?? container
+  }, [activeSectionId])
+
+  const setSectionContainerRef = useCallback((node: HTMLDivElement | null) => {
+    if (!node) {
+      return
+    }
+
+    if (node.dataset.sectionId === activeSectionId) {
+      sectionScrollRef.current = node
+    }
+  }, [activeSectionId])
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow
@@ -40,6 +72,41 @@ function App() {
       document.body.style.overscrollBehaviorY = previousOverscrollY
     }
   }, [])
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT_PX}px)`)
+
+    const updateLayout = () => {
+      setIsMobileLayout(mediaQuery.matches)
+    }
+
+    updateLayout()
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', updateLayout)
+
+      return () => {
+        mediaQuery.removeEventListener('change', updateLayout)
+      }
+    }
+
+    mediaQuery.addListener(updateLayout)
+
+    return () => {
+      mediaQuery.removeListener(updateLayout)
+    }
+  }, [])
+
+  const updateSectionOverflow = useCallback(() => {
+    const container = getActiveScrollableElement()
+
+    if (!container) {
+      setSectionHasOverflow(false)
+      return
+    }
+
+    setSectionHasOverflow(container.scrollHeight - container.clientHeight > OVERFLOW_EPSILON)
+  }, [getActiveScrollableElement])
 
   const navigateToSection = useCallback((nextIndex: number) => {
     const boundedIndex = Math.min(Math.max(nextIndex, 0), SECTION_ORDER.length - 1)
@@ -68,7 +135,50 @@ function App() {
     }
   }, [navigateToSection])
 
-  const handleWheel: React.WheelEventHandler<HTMLElement> = (event) => {
+  useEffect(() => {
+    const container = getActiveScrollableElement()
+    if (container) {
+      container.scrollTop = 0
+    }
+
+    const frame = window.requestAnimationFrame(updateSectionOverflow)
+    const lateFrame = window.setTimeout(updateSectionOverflow, 70)
+
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.clearTimeout(lateFrame)
+    }
+  }, [activeSectionIndex, getActiveScrollableElement, isMobileLayout, updateSectionOverflow])
+
+  useEffect(() => {
+    const container = getActiveScrollableElement()
+    if (!container || typeof ResizeObserver === 'undefined') {
+      return
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateSectionOverflow()
+    })
+
+    resizeObserver.observe(container)
+    if (container.firstElementChild) {
+      resizeObserver.observe(container.firstElementChild)
+    }
+
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, [activeSectionIndex, getActiveScrollableElement, updateSectionOverflow])
+
+  useEffect(() => {
+    wheelAccumulatorRef.current = 0
+  }, [activeSectionIndex, sectionHasOverflow, isMobileLayout])
+
+  const handleSectionWheel: React.WheelEventHandler<HTMLDivElement> = (event) => {
+    if (isMobileLayout || sectionHasOverflow) {
+      return
+    }
+
     event.preventDefault()
 
     if (isTransitioningRef.current) {
@@ -77,33 +187,78 @@ function App() {
 
     wheelAccumulatorRef.current += event.deltaY
 
-    if (wheelAccumulatorRef.current > 42) {
+    if (wheelAccumulatorRef.current > DESKTOP_WHEEL_THRESHOLD) {
       wheelAccumulatorRef.current = 0
       navigateToSection(activeSectionIndex + 1)
-    } else if (wheelAccumulatorRef.current < -42) {
+    } else if (wheelAccumulatorRef.current < -DESKTOP_WHEEL_THRESHOLD) {
       wheelAccumulatorRef.current = 0
       navigateToSection(activeSectionIndex - 1)
     }
   }
 
-  const handleTouchStart: React.TouchEventHandler<HTMLElement> = (event) => {
-    touchStartYRef.current = event.touches[0]?.clientY ?? null
+  const hasHorizontalScrollableAncestor = (target: EventTarget | null) => {
+    if (!(target instanceof HTMLElement)) {
+      return false
+    }
+
+    let current: HTMLElement | null = target
+
+    while (current && current !== sectionScrollRef.current) {
+      const style = window.getComputedStyle(current)
+      const supportsHorizontalScroll = style.overflowX === 'auto' || style.overflowX === 'scroll'
+      const actuallyScrollable = current.scrollWidth - current.clientWidth > OVERFLOW_EPSILON
+
+      if (supportsHorizontalScroll && actuallyScrollable) {
+        return true
+      }
+
+      current = current.parentElement
+    }
+
+    return false
   }
 
-  const handleTouchEnd: React.TouchEventHandler<HTMLElement> = (event) => {
-    if (isTransitioningRef.current || touchStartYRef.current == null) {
+  const handleTouchStart: React.TouchEventHandler<HTMLDivElement> = (event) => {
+    const firstTouch = event.touches[0]
+
+    touchStartPointRef.current = firstTouch
+      ? { x: firstTouch.clientX, y: firstTouch.clientY }
+      : null
+  }
+
+  const handleTouchEnd: React.TouchEventHandler<HTMLDivElement> = (event) => {
+    if (isTransitioningRef.current || touchStartPointRef.current == null) {
       return
     }
 
-    const touchEndY = event.changedTouches[0]?.clientY
-    if (typeof touchEndY !== 'number') {
+    const touchEnd = event.changedTouches[0]
+    if (!touchEnd) {
       return
     }
 
-    const deltaY = touchStartYRef.current - touchEndY
-    touchStartYRef.current = null
+    const deltaX = touchStartPointRef.current.x - touchEnd.clientX
+    const deltaY = touchStartPointRef.current.y - touchEnd.clientY
+    touchStartPointRef.current = null
 
-    if (Math.abs(deltaY) < 45) {
+    if (isMobileLayout) {
+      if (hasHorizontalScrollableAncestor(event.target)) {
+        return
+      }
+
+      if (Math.abs(deltaX) < MOBILE_SWIPE_THRESHOLD || Math.abs(deltaX) <= Math.abs(deltaY)) {
+        return
+      }
+
+      if (deltaX > 0) {
+        navigateToSection(activeSectionIndex + 1)
+      } else {
+        navigateToSection(activeSectionIndex - 1)
+      }
+
+      return
+    }
+
+    if (sectionHasOverflow || Math.abs(deltaY) < DESKTOP_TOUCH_THRESHOLD || Math.abs(deltaY) <= Math.abs(deltaX)) {
       return
     }
 
@@ -147,6 +302,7 @@ function App() {
           github={profile.github}
           specialties={specialties}
           onViewProjects={() => handleNavigateByHref('#projects')}
+          onViewAbout={() => handleNavigateByHref('#about')}
         />
       ),
     },
@@ -181,12 +337,34 @@ function App() {
         />
 
         <main
-          onWheel={handleWheel}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          className="mx-auto h-full w-full max-w-6xl overflow-hidden px-4 pb-28 pt-32 sm:px-6 lg:px-8"
+          className={`mx-auto h-full w-full max-w-6xl overflow-hidden ${
+            isMobileLayout ? 'px-3 pb-32 pt-24' : 'px-4 pb-28 pt-32 sm:px-6 lg:px-8'
+          }`}
         >
           <div className="relative h-full w-full overflow-hidden">
+            {sectionHasOverflow && (
+              <div className={`pointer-events-none absolute z-30 flex gap-2 ${isMobileLayout ? 'bottom-20 right-1' : 'right-1 top-1'}`}>
+                <button
+                  type="button"
+                  onClick={() => navigateToSection(activeSectionIndex - 1)}
+                  disabled={activeSectionIndex === 0}
+                  className="pointer-events-auto inline-flex h-9 w-9 items-center justify-center rounded-full border border-emerald-300/35 bg-zinc-950/72 text-emerald-100 transition hover:bg-zinc-900/90 disabled:cursor-not-allowed disabled:opacity-45"
+                  aria-label="Previous section"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigateToSection(activeSectionIndex + 1)}
+                  disabled={activeSectionIndex === SECTION_ORDER.length - 1}
+                  className="pointer-events-auto inline-flex h-9 w-9 items-center justify-center rounded-full border border-emerald-300/35 bg-zinc-950/72 text-emerald-100 transition hover:bg-zinc-900/90 disabled:cursor-not-allowed disabled:opacity-45"
+                  aria-label="Next section"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            )}
+
             <AnimatePresence initial={false} custom={direction} mode="sync">
               <motion.div
                 key={currentSection.id}
@@ -211,7 +389,16 @@ function App() {
                 }}
                 className="absolute inset-0 h-full w-full will-change-transform"
               >
-                {currentSection.content}
+                <div
+                  ref={setSectionContainerRef}
+                  data-section-id={activeSectionId}
+                  onWheel={handleSectionWheel}
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
+                  className={`h-full overflow-hidden ${isMobileLayout ? 'pb-4 pr-0' : 'pb-3 pr-1'}`}
+                >
+                  {currentSection.content}
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

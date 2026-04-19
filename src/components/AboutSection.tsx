@@ -6,7 +6,7 @@ type AboutSectionProps = {
   sectionClassName?: string
 }
 
-export function AboutSection({ about, sectionClassName = 'pt-14' }: AboutSectionProps) {
+export function AboutSection({ about, sectionClassName = '' }: AboutSectionProps) {
   return (
     <motion.section
       id="about"
@@ -14,12 +14,13 @@ export function AboutSection({ about, sectionClassName = 'pt-14' }: AboutSection
       whileInView={{ y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.55, ease: 'easeOut' }}
-      className={sectionClassName}
+      className={`h-full min-h-0 ${sectionClassName}`.trim()}
     >
-      <div className="glass-card px-6 py-8 sm:px-10">
+      <div data-section-scrollable="true" className="glass-card hide-scrollbar max-h-full overflow-y-auto px-6 py-8 sm:px-10">
         <p className="mono-label text-xs uppercase tracking-[0.22em] text-emerald-300/85">About</p>
         <h2 className="mt-3 text-2xl font-bold text-zinc-100 sm:text-3xl">Education and technical focus</h2>
 
+        <div className="mt-4 pr-1">
         <p className="mt-4 max-w-4xl text-sm leading-relaxed text-zinc-300 sm:text-base">{about}</p>
 
         <p className="mt-4 max-w-4xl text-sm leading-relaxed text-zinc-300 sm:text-base">
@@ -76,6 +77,7 @@ export function AboutSection({ about, sectionClassName = 'pt-14' }: AboutSection
               clearly to technical and non-technical stakeholders.
             </p>
           </div>
+        </div>
         </div>
       </div>
     </motion.section>
