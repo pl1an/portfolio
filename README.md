@@ -6,7 +6,7 @@ Personal portfolio built with React + TypeScript to present experience, skills, 
 
 Access the published version at:
 
-[https://portfolio-pl1ans-projects.vercel.app/](https://portfolio-pl1ans-projects.vercel.app/)
+[https://portfolio-nine-chi-70.vercel.app/](https://portfolio-nine-chi-70.vercel.app/)
 
 ## Overview
 
