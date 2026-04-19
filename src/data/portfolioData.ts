@@ -38,6 +38,11 @@ export type SkillItem = {
     | 'c-cpp'
     | 'docker'
     | 'git'
+    | 'postman'
+    | 'vercel'
+    | 'wireshark'
+    | 'latex'
+    | 'figma'
   label: string
 }
 
@@ -45,7 +50,7 @@ export const profile = {
   name: 'Ian Paleta Starling',
   bio: 'Computer Science undergraduate at UFMG. Researcher focused on Reinforcement Learning, Complex Systems, and Cybersecurity.',
   about:
-    'I work at the intersection of Applied AI and Theoretical Computer Science, combining research and engineering to build robust, readable, impact-driven digital products.',
+    'I am a Computer Science undergraduate at UFMG and a Machine Learning Researcher at Inter, working at the intersection of applied AI and software engineering to build reliable, impact-driven products.',
   github: 'https://github.com/pl1an',
   linkedin: 'https://linkedin.com/in/ian-paleta-starling-0a65b52b3',
 }
@@ -59,6 +64,7 @@ export const specialties = [
 export const navItems: NavItem[] = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
@@ -154,6 +160,16 @@ export const projects: ProjectItem[] = [
     visibility: 'public',
     repositoryUrl: 'https://github.com/pl1an/i_just_need_to_get_to_work',
   },
+  {
+    title: 'EanterOS',
+    description:
+        'Solution to help lawyers make decisions on loan judicial cases. Built during Hackathon UFMGxEnter 2026.',
+    outcome:
+        'A multi agent pipeline, integrated with NLP models, to extract insights and predict case outcomes based on legal documents.',
+    stack: ['React', 'MongoDB', 'NLP Models'],
+    visibility: 'public',
+    repositoryUrl: 'https://github.com/Gr-moura/hackathon-ufmg-2026-grupo10',
+  }
 ]
 
 export const skills: SkillItem[] = [
@@ -164,4 +180,9 @@ export const skills: SkillItem[] = [
   { key: 'c-cpp', label: 'C / C++' },
   { key: 'docker', label: 'Docker' },
   { key: 'git', label: 'Git' },
+  { key: 'postman', label: 'Postman' },
+  { key: 'vercel', label: 'Vercel' },
+  { key: 'wireshark', label: 'Wireshark' },
+  { key: 'latex', label: 'LaTeX' },
+  { key: 'figma', label: 'Figma' },
 ]

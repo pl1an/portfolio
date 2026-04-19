@@ -17,8 +17,8 @@ import {
   specialties,
 } from './data/portfolioData'
 
-const SECTION_ORDER = ['#home', '#about', '#experience', '#projects'] as const
-const TRANSITION_LOCK_MS = 860
+const SECTION_ORDER = ['#home', '#about', '#skills', '#experience', '#projects'] as const
+const TRANSITION_LOCK_MS = 200
 
 function App() {
   const [activeSectionIndex, setActiveSectionIndex] = useState(0)
@@ -62,9 +62,7 @@ function App() {
       return
     }
 
-    const normalizedHref = href === '#skills' ? '#about' : href
-
-    const index = SECTION_ORDER.indexOf(normalizedHref as (typeof SECTION_ORDER)[number])
+    const index = SECTION_ORDER.indexOf(href as (typeof SECTION_ORDER)[number])
     if (index !== -1) {
       navigateToSection(index)
     }
@@ -122,12 +120,12 @@ function App() {
         return
       }
 
-      if (event.key === 'ArrowDown' || event.key === 'PageDown' || event.key === ' ') {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
         event.preventDefault()
         navigateToSection(activeSectionIndex + 1)
       }
 
-      if (event.key === 'ArrowUp' || event.key === 'PageUp') {
+      if (event.key === 'ArrowUp' || event.key === 'ArrowLeft' || event.key === 'PageUp') {
         event.preventDefault()
         navigateToSection(activeSectionIndex - 1)
       }
@@ -154,14 +152,11 @@ function App() {
     },
     {
       id: 'about',
-      content: (
-        <div className="hide-scrollbar h-full overflow-y-auto pr-1">
-          <div className="flex flex-col gap-6">
-            <AboutSection about={profile.about} sectionClassName="pt-0" />
-            <SkillsSection skills={skills} sectionClassName="pt-0" />
-          </div>
-        </div>
-      ),
+      content: <AboutSection about={profile.about} />,
+    },
+    {
+      id: 'skills',
+      content: <SkillsSection skills={skills} />,
     },
     {
       id: 'experience',
@@ -182,7 +177,6 @@ function App() {
           navItems={focusNavItems}
           name={profile.name}
           activeHref={SECTION_ORDER[activeSectionIndex]}
-          activeAliasHrefs={SECTION_ORDER[activeSectionIndex] === '#about' ? ['#skills'] : undefined}
           onNavigate={handleNavigateByHref}
         />
 

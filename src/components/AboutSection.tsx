@@ -22,7 +22,17 @@ export function AboutSection({ about, sectionClassName = 'pt-14' }: AboutSection
 
         <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-300 sm:text-base">{about}</p>
 
-        <div className="mt-7 grid gap-3 sm:grid-cols-2">
+        <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-300 sm:text-base">
+          I am especially interested in how complex emergent behaviors can arise from simple rules, particularly in
+          reinforcement learning, dynamic simulations, and multi-agent systems. How to apply these emergent behaviours in both 
+          real-world products, digital simulations and games? How can the capacity of learning make a difference in the user experience?
+        </p>
+
+        <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-300 sm:text-base">
+            ML is a beautiful blend of theory and practice, and being able to see models dinamically evolve is incredibly rewarding.
+        </p>
+
+        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-2">
           <div className="rounded-xl border border-slate-200/16 bg-slate-900/55 p-4">
             <div className="inline-flex items-center gap-2 text-teal-100">
               <GraduationCap size={18} />
@@ -37,11 +47,33 @@ export function AboutSection({ about, sectionClassName = 'pt-14' }: AboutSection
           <div className="rounded-xl border border-slate-200/16 bg-slate-900/55 p-4">
             <div className="inline-flex items-center gap-2 text-teal-100">
               <BrainCircuit size={18} />
-              <span className="mono-label text-xs uppercase tracking-wide text-teal-100/90">Research</span>
+              <span className="mono-label text-xs uppercase tracking-wide text-teal-100/90">Research focus</span>
             </div>
             <p className="mt-2 text-sm text-slate-300">
-              Focused on Applied AI and Theoretical Computer Science to understand adaptive
-              systems, complexity, and security in real-world environments.
+              Focused on NLP, foundation models, and applied machine learning, with strong
+              experience in data analysis and exploratory workflows for decision support.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-slate-200/16 bg-slate-900/55 p-4">
+            <div className="inline-flex items-center gap-2 text-teal-100">
+              <BrainCircuit size={18} />
+              <span className="mono-label text-xs uppercase tracking-wide text-teal-100/90">Engineering domains</span>
+            </div>
+            <p className="mt-2 text-sm text-slate-300">
+              Full-stack web development, cybersecurity-oriented systems,
+              connecting technical depth with product-oriented execution.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-slate-200/16 bg-slate-900/55 p-4">
+            <div className="inline-flex items-center gap-2 text-teal-100">
+              <GraduationCap size={18} />
+              <span className="mono-label text-xs uppercase tracking-wide text-teal-100/90">Collaboration and delivery</span>
+            </div>
+            <p className="mt-2 text-sm text-slate-300">
+              I enjoy working in teams, collaborating across disciplines, and presenting products
+              clearly to technical and non-technical stakeholders.
             </p>
           </div>
         </div>

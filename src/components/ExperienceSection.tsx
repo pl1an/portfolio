@@ -18,7 +18,6 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
     >
       <div className="glass-card px-6 py-8 sm:px-10">
         <div className="flex items-center gap-2 text-teal-100">
-          <BriefcaseBusiness size={18} />
           <p className="mono-label text-xs uppercase tracking-[0.22em] text-teal-100/85">Experience</p>
         </div>
 
